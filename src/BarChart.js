@@ -3,6 +3,7 @@ import './App.css'
 import { scaleLinear } from 'd3-scale'
 import { max } from 'd3-array'
 import { select } from 'd3-selection'
+import d3 from 'd3'
 
 class BarChart extends Component {
   constructor(props){
@@ -22,7 +23,7 @@ class BarChart extends Component {
     const node = this.node;
     const dataMax = max(this.props.data)
     const yScale = scaleLinear()
-      .domain([0, dataMax])
+      .domain([0, dataMax + 300])
       .range([0, this.props.size[1]])
 
   select(node)
@@ -41,14 +42,23 @@ class BarChart extends Component {
     .selectAll('rect')
     .data(this.props.data)
     .style('fill', '#fe9922')
-    .attr('x', (d,i) => i *25)
+    .attr('x', (d,i) => (i * 60)+ 50)
     .attr('y', d => this.props.size[1] - yScale(d))
     .attr('height', d => yScale(d))
-    .attr('width', 25)
+    .attr('width', 50)
+
+  select(node)
+    .selectAll('text')
+    .data(this.props.data)
+    .enter()
+    .append('text')
+    .text(d => d)
+    .attr('x', (d, i) => (i * 60)+ 55)
+    .attr('y', d => this.props.size[1] - yScale(d) - 3)
   }
 
   render(){
-    return <div className="barChart" className="section"><svg ref = {node => this.node = node} width={500} height={500}></svg></div>
+    return <div className="barChart" className="section"><svg ref = {node => this.node = node} width={400} height={500}></svg></div>
   }
 }
 
