@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import BarChart from './BarChart';
 import NYCMap from './NYCMap';
+import zipInfo from './data/zipInfo'
 import axios from 'axios'
 
 class App extends Component {
   constructor(){
     super()
-    this.state = {}
+    this.state = {boroughInfo: []}
   this.getDataBorough = this.getDataBorough.bind(this)
   this.getDataZip = this.getDataZip.bind(this)
+  this.setUpdata = this.setUpdata.bind(this)
+  this.year = 2018
   }
 
   async getDataBorough(borough, year){
@@ -24,6 +27,24 @@ class App extends Component {
     // `https://data.cityofnewyork.us/resource/tg4x-b46p.json?$where=date_extract_y(enddatetime)%20=%20${year}&borough=${borough}`
   }
 
+  async setUpdata(){
+    const colors = ['#ffccba', '#f48d69', '#f76836', '#f94202']
+    zipInfo.features.forEach(async (x) => {
+      x.properties.filmInfo = await this.getDataZip(x.properties.postalCode, this.year)
+      if(x.properties.filmInfo.length < 20){
+        x.properties.fill = colors[0]
+      }
+      else if(x.properties.filmInfo.length < 50){
+        x.properties.fill = colors[1]
+      }
+      else if(x.properties.filmInfo.length < 70){
+        x.properties.fill = colors[2]
+      } else {
+        x.properties.fill = colors[3]
+      }
+    })
+  }
+
   async getDataZip(zip, year){
     let zipYear = `https://data.cityofnewyork.us/resource/tg4x-b46p.json?$where=date_extract_y(enddatetime)%20=%20${year}&zipcode_s=${zip}`
     let response = await axios.get(zipYear)
@@ -31,22 +52,21 @@ class App extends Component {
   }
 
   async componentDidMount(){
-    let year = 2018
+    let year = this.year
     let brooklynData = await this.getDataBorough('Brooklyn', year)
     let queensData = await this.getDataBorough('Queens', year)
     let bronxData = await this.getDataBorough('Bronx', year)
     let statenData = await this.getDataBorough('Staten Island', year)
     let manhattenData = await this.getDataBorough('Manhattan', year)
     let boroughInfo = { brooklynData, queensData, bronxData, statenData, manhattenData}
-    console.log(boroughInfo)
-    this.setState(boroughInfo)
-
+    this.setState({...this.state, boroughInfo})
+    await this.setUpdata()
   }
 
   render() {
     let dataSet = []
-    if(this.state.brooklynData){
-      dataSet = [this.state.brooklynData.length, this.state.queensData.length, this.state.bronxData.length, this.state.statenData.length, this.state.manhattenData.length]
+    if(this.state.boroughInfo.brooklynData){
+      dataSet = [this.state.boroughInfo.brooklynData.length, this.state.boroughInfo.queensData.length, this.state.boroughInfo.bronxData.length, this.state.boroughInfo.statenData.length, this.state.boroughInfo.manhattenData.length]
     }
 
     return (
@@ -54,7 +74,7 @@ class App extends Component {
         <div className="App-header">
           <h2> What's Filming Where?</h2>
           <BarChart data={dataSet} size={[400, 450]} />
-          <NYCMap />
+          <NYCMap data={zipInfo}/>
         </div>
       </div>
     );

@@ -41,11 +41,19 @@ class BarChart extends Component {
   select(node)
     .selectAll('rect')
     .data(this.props.data)
-    .style('fill', '#fe9922')
-    .attr('x', (d,i) => (i * 60)+ 50)
-    .attr('y', d => this.props.size[1] - yScale(d))
+    .attr('x', (d,i) => (i * 60)+ 52)
+    .attr('y', d => this.props.size[1] - yScale(d) + 5)
     .attr('height', d => yScale(d))
     .attr('width', 50)
+    .style('fill', '#ff5d00')
+    .on('mouseover', function(d) {
+      select('rect')
+        this.style="fill:#ffd000"
+    })
+    .on('mouseout', function(d) {
+      select('rect')
+      this.style="fill:#ff5d00"
+    })
 
   select(node)
     .selectAll('text')
