@@ -24,8 +24,12 @@ class NYCMap extends Component {
        />)
     }
 
-    return (<div className="map" className="section"><svg width={width} height={height}> {zipCodes}
-      </svg></div>)
+    return (
+      this.props.stateZips.length ?
+    <div className="map" className="section"><svg width={width} height={height}> {zipCodes}
+      </svg></div> : <img
+          src="https://media.giphy.com/media/ILhyncSuN62qc/giphy.gif"
+        />)
   }
 }
 

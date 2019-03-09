@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleBand } from 'd3-scale'
 import { max } from 'd3-array'
 import { select } from 'd3-selection'
-import d3 from 'd3'
+
 
 class BarChart extends Component {
   constructor(props){
@@ -12,6 +12,7 @@ class BarChart extends Component {
   }
 
   componentDidMount(){
+    console.log('bar props ', this.props)
     this.createBarChart()
   }
 
@@ -60,13 +61,27 @@ class BarChart extends Component {
     .data(this.props.data)
     .enter()
     .append('text')
+
+  select(node)
+    .selectAll('text')
+    .data(this.props.data)
+    .exit()
+    .remove()
+
+  select(node)
+    .selectAll('text')
+    .data(this.props.data)
+    .enter()
+    .append('text')
     .text(d => d)
     .attr('x', (d, i) => (i * 60)+ 55)
     .attr('y', d => this.props.size[1] - yScale(d) - 3)
-  }
+}
+
 
   render(){
-    return <div className="barChart" className="section"><svg ref = {node => this.node = node} width={400} height={500}></svg></div>
+    console.log('bar props ', this.props)
+    return (this.props.data.length ? <div className="barChart" className="section"><svg ref = {node => this.node = node} width={400} height={500}></svg></div> : <div>Loading</div>)
   }
 }
 
