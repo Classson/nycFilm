@@ -8,7 +8,7 @@ import axios from 'axios';
 class App extends Component {
   constructor() {
     super();
-    this.state = { boroughInfo: [], stateZipInfo: [], stateZips: [] };
+    this.state = { boroughInfo: [], stateZips: [] };
     this.getDataBorough = this.getDataBorough.bind(this);
     this.getDataZip = this.getDataZip.bind(this);
     this.setUpdata = this.setUpdata.bind(this);
@@ -92,7 +92,6 @@ class App extends Component {
 
   render() {
     let dataSet = [];
-    let zipData = this.state.stateZipInfo || [];
     if (this.state.boroughInfo.brooklynData) {
       dataSet = [
         this.state.boroughInfo.brooklynData.length,
@@ -108,7 +107,7 @@ class App extends Component {
         <div className="App-header">
           <h2> What's Filming Where?</h2>
           <BarChart data={dataSet} size={[400, 450]} />
-          <NYCMap zipData={zipData} stateZips={this.state.stateZips} />
+          <NYCMap stateZips={this.state.stateZips} />
         </div>
       </div>
     );

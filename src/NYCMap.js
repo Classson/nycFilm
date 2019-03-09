@@ -12,17 +12,15 @@ class NYCMap extends Component {
     .center([-73.98, 40.71])
     .translate([(width) / 2, (height)/2]);
     const pathGenerator = geoPath().projection(projection)
-    console.log('props are ', this.props)
     let zipCodes
-    if(this.props.zipData.features){
-      console.log('hit')
-      zipCodes = this.props.zipData.features
+    if(this.props.stateZips.length){
+      zipCodes = this.props.stateZips
       .map((d,i) =>
       <path
       fill={this.props.stateZips[i].fill}
-      className={this.props.zipData.features[i].properties.PO_NAME}
+      className={this.props.stateZips[i].features.properties.PO_NAME}
       key={'path' + i}
-      d={pathGenerator(d)}
+      d={pathGenerator(d.features)}
        />)
     }
 
