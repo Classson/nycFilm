@@ -11,15 +11,15 @@ class App extends Component {
     super();
     this.state = {
       boroughInfo: [],
-      stateZips: [],
+      stateZips: {info: [], scale: 0, center: []},
       year: '2018',
-      overView: [],
-      selectedView: [],
-      manhattanZips: [],
-      brooklynZips: [],
-      queensZips: [],
-      bronxZips: [],
-      statenZips: [],
+      overView: {info: [], scale: 0, center: []},
+      selectedView: {info: [], scale: 0, center: []},
+      manhattanInfo: {info: [], scale: 0, center: []},
+      brooklynInfo: {info: [], scale: 0, center: []},
+      queensInfo: {info: [], scale: 0, center: []},
+      bronxInfo: {info: [], scale: 0, center: []},
+      statenInfo: {info: [], scale: 0, center: []},
     };
     this.getDataBorough = this.getDataBorough.bind(this);
     this.getDataZip = this.getDataZip.bind(this);
@@ -101,19 +101,19 @@ class App extends Component {
       this.setState({...this.state, selectedView: this.state.stateZips})
     }
     if(evt.target.value === 'Brooklyn'){
-      this.setState({...this.state, selectedView: this.state.brooklynZips})
+      this.setState({...this.state, selectedView: this.state.brooklynInfo})
     }
     if(evt.target.value === 'Queens'){
-      this.setState({...this.state, selectedView: this.state.queensZips})
+      this.setState({...this.state, selectedView: this.state.queensInfo})
     }
     if(evt.target.value === 'Manhattan'){
-      this.setState({...this.state, selectedView: this.state.manhattanZips})
+      this.setState({...this.state, selectedView: this.state.manhattanInfo})
     }
     if(evt.target.value === 'Bronx'){
-      this.setState({...this.state, selectedView: this.state.bronxZips})
+      this.setState({...this.state, selectedView: this.state.bronxInfo})
     }
     if(evt.target.value === 'Staten Island'){
-      this.setState({...this.state, selectedView: this.state.statenZips})
+      this.setState({...this.state, selectedView: this.state.statenInfo})
     }
   }
 
@@ -139,7 +139,7 @@ class App extends Component {
 
     this.setState({ ...this.state, boroughInfo });
     let allZips = await this.setUpdata();
-    let overView = await this.setUpOverView()
+    let overInfo = await this.setUpOverView()
     allZips.forEach(x => {
       if(x.features.properties.borough === 'Brooklyn'){
         brooklynZips.push(x)
@@ -158,7 +158,16 @@ class App extends Component {
       }
 
     })
-    this.setState({ ...this.state, stateZipInfo: zipInfo, stateZips: allZips, overView, selectedView: overView, brooklynZips, queensZips, bronxZips, statenZips, manhattanZips });
+    //cords [0 side to side 1,  0 up and down 1]
+    let overView = {info: overInfo, scale:50000, center: [-73.98, 40.71]}
+    let brooklynInfo = {info: brooklynZips, scale: 120000, center: [-73.9442, 40.65]}
+    let queensInfo = {info: queensZips, scale: 70000, center: [-73.85, 40.67]}
+    let manhattanInfo = {info: manhattanZips, scale: 100000, center: [-73.95, 40.78]}
+    let bronxInfo = {info: bronxZips, scale: 120000, center: [-73.85, 40.85]}
+    let statenInfo = {info: statenZips, scale: 110000, center: [-74.14, 40.58]}
+    let detailInfo = {info: allZips, scale:50000, center: [-73.98, 40.71]}
+    this.setState({ ...this.state, stateZipInfo: zipInfo, stateZips: detailInfo, overView, selectedView: overView, brooklynInfo, queensInfo, bronxInfo, statenInfo, manhattanInfo });
+
   }
 
   async getDataZip(zip, year) {
