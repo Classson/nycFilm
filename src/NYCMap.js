@@ -13,17 +13,19 @@ class NYCMap extends Component {
     .translate([(width) / 2, (height)/2]);
     const pathGenerator = geoPath().projection(projection)
     console.log('props are ', this.props)
-      const zipCodes = this.props.data.features
+    let zipCodes
+    if(this.props.zipData.features){
+      console.log('hit')
+      zipCodes = this.props.zipData.features
       .map((d,i) =>
       <path
-      className={this.props.data.features[i].properties.PO_NAME}
-      fill={this.props.data.features[i].properties.PO_NAME}
+      fill={this.props.stateZips[i].fill}
+      className={this.props.zipData.features[i].properties.PO_NAME}
       key={'path' + i}
       d={pathGenerator(d)}
        />)
+    }
 
-    console.log('zipcodes ', zipCodes)
-    console.log('props ', this.props.data.features)
     return (<div className="map" className="section"><svg width={width} height={height}> {zipCodes}
       </svg></div>)
   }
