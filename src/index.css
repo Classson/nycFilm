@@ -16,9 +16,48 @@ code {
 svg {
   background-color: red;
 }
+/*
+.section {
+  padding: 10px;
+  margin: 10px;
+} */
 
 .section {
+  display: flex;
   padding: 10px;
   margin: 10px;
 }
 
+.legend {
+  background-color: white;
+  color: black;
+  width: 250px;
+  height: 450px;
+  /* margin: 10px; */
+}
+
+.sample {
+  width: 50px;
+  height: 50px;
+  background-color: red
+}
+
+#adbdbdb {
+  background-color: #dbdbdb
+}
+
+#affa500 {
+  background-color: #ffa500
+}
+
+#ac98304 {
+  background-color: #c98304
+}
+
+#aa86d03 {
+  background-color: #a86d03
+}
+
+#a7f5201 {
+  background-color: #7f5201
+}

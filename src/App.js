@@ -20,6 +20,7 @@ class App extends Component {
       queensInfo: {info: [], scale: 0, center: []},
       bronxInfo: {info: [], scale: 0, center: []},
       statenInfo: {info: [], scale: 0, center: []},
+      colors: ['#dbdbdb', '#ffa500', '#c98304', '#a86d03', '#7f5201']
     };
     this.getDataBorough = this.getDataBorough.bind(this);
     this.getDataZip = this.getDataZip.bind(this);
@@ -43,21 +44,20 @@ class App extends Component {
           this.state.year
         );
         x.properties.filmNum = x.properties.filmInfo.length.toString();
-        let colors = ['#dbdbdb', '#ffa500', '#c98304', '#a86d03', '#7f5201'];
         let obj = {};
         obj.features = x;
         obj.info = x.properties.filmInfo;
         obj.length = x.properties.filmInfo.length;
         if (x.properties.filmInfo.length === 0) {
-          obj.fill = colors[0];
+          obj.fill = this.state.colors[0];
         } else if (x.properties.filmInfo.length < 5) {
-          obj.fill = colors[1];
+          obj.fill = this.state.colors[1];
         } else if (x.properties.filmInfo.length < 10) {
-          obj.fill = colors[2];
+          obj.fill = this.state.colors[2];
         } else if (x.properties.filmInfo.length < 25) {
-          obj.fill = colors[3];
+          obj.fill = this.state.colors[3];
         } else {
-          obj.fill = colors[4];
+          obj.fill = this.state.colors[4];
         }
         return obj;
       })
@@ -72,15 +72,15 @@ class App extends Component {
         let num = this.state.boroughInfo[name].length
         let fill
         if(num < 1000){
-          fill = '#ffa500'
+          fill = this.state.colors[1]
         }
         else if(num < 2000){
-          fill = '#c98304'
+          fill = this.state.colors[2]
         }
         else if(num < 3000){
-          fill = '#a86d03'
+          fill = this.state.colors[3]
         } else {
-          fill = '#7f5201'
+          fill = this.state.colors[4]
         }
         return {features: x, name, num, fill }
       })
@@ -200,7 +200,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2> What's Filming Where?</h2>
+          <h1> What's Filming Where?</h1>
           <select onChange={this.setYear}>
             <option value="2018">2018</option>
             <option value="2015">2015</option>
@@ -216,7 +216,10 @@ class App extends Component {
             <option value="detail">Detail</option>
           </select>
           {/* <BarChart data={dataSet} size={[400, 450]} /> */}
-          <NYCMap stateZips={this.state.selectedView}/>
+          <div className="mapContainer">
+          <NYCMap stateZips={this.state.selectedView} colors={this.state.colors} />
+          {/* <Legend colors={this.state.colors} selected={this.state.selectedView} /> */}
+          </div>
         </div>
       </div>
     );
