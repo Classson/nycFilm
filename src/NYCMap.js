@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import boroughInfo from './data/boroughInfo';
+import boroughInfo from '../data/boroughInfo';
 import { geoMercator, geoPath } from 'd3-geo';
 
 class NYCMap extends Component {

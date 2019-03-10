@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import BarChart from './BarChart';
 import NYCMap from './NYCMap';
-import zipInfo from './data/zipInfo';
-import boroughMapInfo from './data/boroughInfo';
+import zipInfo from '../data/zipInfo';
+import boroughMapInfo from '../data/boroughInfo';
 import axios from 'axios';
 
 class App extends Component {
