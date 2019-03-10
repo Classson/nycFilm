@@ -69,28 +69,28 @@ class BarChart extends Component {
     const dataMax = max(this.data.map(x => x.number))
     console.log('data max is ', dataMax)
     const yScale = scaleLinear()
-      .domain([0, dataMax + 300])
+      .domain([0, dataMax + 50])
       .range([0, this.props.size[1]])
 
   select(node)
     .selectAll('rect')
-    .data(this.props.data)
+    .data(this.data)
     .enter()
     .append('rect')
 
   select(node)
     .selectAll('rect')
-    .data(this.props.data)
+    .data(this.data)
     .exit()
     .remove()
 
   select(node)
     .selectAll('rect')
     .data(this.data)
-    .attr('x', (d,i) => (i * 60)+ 52)
-    .attr('y', d => this.props.size[1] - yScale(d.number) + 5)
+    .attr('x', (d,i) => (i * 50)+ 30)
+    .attr('y', d => this.props.size[1] - yScale(d.number) + 50)
     .attr('height', d => yScale(d.number))
-    .attr('width', 50)
+    .attr('width', 30)
     .style('fill', '#ff5d00')
     .on('mouseover', function(d) {
       select('rect')
@@ -107,20 +107,14 @@ class BarChart extends Component {
     .enter()
     .append('text')
 
-  // select(node)
-  //   .selectAll('text')
-  //   .data(this.data)
-  //   .exit()
-  //   .remove()
-
   select(node)
     .selectAll('text')
     .data(this.data)
     .enter()
     .append('text')
     .text(d => d.name)
-    .attr('x', (d, i) => (i * 60)+ 55)
-    .attr('y', d => this.props.size[1] - yScale(d) - 3)
+    .attr('x', (d, i) => (i * 50)+ 30)
+    .attr('y', d => this.props.size[1] - yScale(d.number) +50)
 }
 
 
@@ -129,7 +123,7 @@ class BarChart extends Component {
     this.data = categories;
     console.log('cats ', this.data)
     console.log('props ', this.props);
-    return (this.props.data.length ? <div className="barChart" className="section"><svg ref = {node => this.node = node} width={400} height={300}></svg></div> : <div>Loading</div>)
+    return (this.props.data.length ? <div className="barChart" className="section"><svg ref = {node => this.node = node} width={500} height={300}></svg></div> : <div>Loading</div>)
   }
 }
 

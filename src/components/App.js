@@ -265,7 +265,7 @@ class App extends Component {
               stateZips={this.state.selectedView}
               colors={this.state.colors}
             />
-            <BarChart data={dataSet} size={[400, 200]} film={this.state.selectedView} />
+            <BarChart data={dataSet} size={[500, 200]} film={this.state.selectedView} />
           </div>
         </div>
       </div>
