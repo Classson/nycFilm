@@ -16,7 +16,7 @@ class NYCMap extends Component {
       if(this.props.stateZips.info.length < 6){
         colors = [{color: this.props.colors[0], range:'0'}, {color: this.props.colors[1], range:'1 - 1,000'}, {color: this.props.colors[2], range:'1,001 - 2,000'}, {color: this.props.colors[3], range:'2,001 - 3,000'}, {color: this.props.colors[4], range:'3,001+'}]
       } else {
-        colors = [{color: this.props.colors[0], range:'0'}, {color: this.props.colors[1], range:'1-5'}, {color: this.props.colors[2], range:'6-10'}, {color: this.props.colors[3], range:'11-25'}, {color: this.props.colors[4], range:'26+'}]
+        colors = [{color: this.props.colors[0], range:'0'}, {color: this.props.colors[1], range:'1-5'}, {color: this.props.colors[2], range:'6-10'}, {color: this.props.colors[3], range:'11-15'}, {color: this.props.colors[4], range:'16-20'}, {color: this.props.colors[5], range:'21-25'}, {color: this.props.colors[6], range:'26+'}]
       }
       const projection = geoMercator()
         .scale(this.props.stateZips.scale)
@@ -46,7 +46,7 @@ class NYCMap extends Component {
           <h3>Legend</h3>
           <p>Number of Permits Per Year</p>
           {colors.map(color => {
-            return <div key={color.color}>
+            return <div className="legendPoint" key={color.color}>
             <div className="sample" id={`a${color.color.slice(1)}`}></div>
             <p>{color.range}</p>
             </div>

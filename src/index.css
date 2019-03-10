@@ -13,33 +13,54 @@ code {
     monospace;
 }
 
-svg {
-  background-color: red;
+.selects {
+  display: flex
 }
-/*
-.section {
-  padding: 10px;
-  margin: 10px;
-} */
+
+select {
+  width: 150px;
+  height: 25px;
+  margin: 0px 10px 0px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: Arial;
+  background-color: #E0FFFF;
+}
+
+svg {
+  background-color: #E0FFFF;
+  margin: 10px
+}
 
 .section {
   display: flex;
   padding: 10px;
   margin: 10px;
+  align-items: center;
 }
 
 .legend {
   background-color: white;
   color: black;
-  width: 250px;
-  height: 450px;
+  width: 200px;
+  height: 400px;
+  margin: 10px
   /* margin: 10px; */
 }
 
+.legendPoint {
+  display:flex;
+  align-items: center;
+}
+
 .sample {
-  width: 50px;
-  height: 50px;
-  background-color: red
+  width: 20px;
+  height: 20px;
+  margin: 0px 15px 0px 25px;
+}
+
+p {
+  font-size: 12px;
 }
 
 #adbdbdb {
@@ -60,4 +81,12 @@ svg {
 
 #a7f5201 {
   background-color: #7f5201
+}
+
+#a523501 {
+  background-color: #523501
+}
+
+#a422A01 {
+  background-color: #422A01
 }
