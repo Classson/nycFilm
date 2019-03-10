@@ -11,15 +11,15 @@ class App extends Component {
     super();
     this.state = {
       boroughInfo: [],
-      stateZips: { info: [], scale: 0, center: [] },
+      stateZips: { info: [], scale: 0, center: [], filmType: [] },
       year: '2018',
-      overView: { info: [], scale: 0, center: [] },
-      selectedView: { info: [], scale: 0, center: [] },
-      manhattanInfo: { info: [], scale: 0, center: [] },
-      brooklynInfo: { info: [], scale: 0, center: [] },
-      queensInfo: { info: [], scale: 0, center: [] },
-      bronxInfo: { info: [], scale: 0, center: [] },
-      statenInfo: { info: [], scale: 0, center: [] },
+      overView: { info: [], scale: 0, center: [], filmType: [] },
+      selectedView: { info: [], scale: 0, center: [], filmType: [] },
+      manhattanInfo: { info: [], scale: 0, center: [], filmType: [] },
+      brooklynInfo: { info: [], scale: 0, center: [], filmType: [] },
+      queensInfo: { info: [], scale: 0, center: [], filmType: [] },
+      bronxInfo: { info: [], scale: 0, center: [], filmType: [] },
+      statenInfo: { info: [], scale: 0, center: [], filmType: [] },
       colors: [
         '#dbdbdb',
         '#ffa500',
@@ -259,13 +259,13 @@ class App extends Component {
               </select>
             </div>
           </div>
-          {/* <BarChart data={dataSet} size={[400, 450]} /> */}
+
           <div className="mapContainer">
             <NYCMap
               stateZips={this.state.selectedView}
               colors={this.state.colors}
             />
-            {/* <Legend colors={this.state.colors} selected={this.state.selectedView} /> */}
+            <BarChart data={dataSet} size={[400, 200]} film={this.state.selectedView} />
           </div>
         </div>
       </div>

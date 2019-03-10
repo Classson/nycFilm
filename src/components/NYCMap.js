@@ -9,7 +9,6 @@ class NYCMap extends Component {
     const height = 500;
     let colors
     if(this.props.stateZips.info.length){
-      console.log('length ', this.props.colors[0].slice(1))
     }
     if (this.props.stateZips.info.length) {
       if(this.props.stateZips.info.length < 6){
@@ -22,8 +21,6 @@ class NYCMap extends Component {
         .center(this.props.stateZips.center)
         .translate([width / 2, height / 2]);
       const pathGenerator = geoPath().projection(projection);
-
-      console.log('props ', this.props);
 
       zipCodes = this.props.stateZips.info.map((d, i) => (
         <path
