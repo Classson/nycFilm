@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import BarChart from './BarChart';
 import NYCMap from './NYCMap';
+import Chart from './Chart';
 import zipInfo from '../zipInfo';
 import boroughMapInfo from '../boroughInfo';
 import axios from 'axios';
@@ -13,7 +14,7 @@ class App extends Component {
       boroughInfo: [],
       stateZips: { info: [], scale: 0, center: [], filmType: [] },
       year: '2018',
-      overView: { info: [], scale: 0, center: [], filmType: [] },
+      overView: { info: [], scale: 0, center: [], overview: true },
       selectedView: { info: [], scale: 0, center: [], filmType: [] },
       manhattanInfo: { info: [], scale: 0, center: [], filmType: [] },
       brooklynInfo: { info: [], scale: 0, center: [], filmType: [] },
@@ -173,7 +174,7 @@ class App extends Component {
     let overView = { info: overInfo, scale: 50000, center: [-73.98, 40.71] };
     let brooklynInfo = {
       info: brooklynZips,
-      scale: 120000,
+      scale: 120001,
       center: [-73.9442, 40.65],
     };
     let queensInfo = {
@@ -239,7 +240,7 @@ class App extends Component {
           <h1> What's Filming Where?</h1>
           <div className="selects">
             <div className="selecter">
-            <label>Year</label>
+              <label>Year</label>
               <select onChange={this.setYear}>
                 <option value="2018">2018</option>
                 <option value="2015">2015</option>
@@ -247,7 +248,7 @@ class App extends Component {
               </select>
             </div>
             <div className="selecter">
-            <label>View</label>
+              <label>View</label>
               <select onChange={this.setView}>
                 <option value="overView">Overview</option>
                 <option value="Bronx">Bronx</option>
@@ -265,6 +266,9 @@ class App extends Component {
               stateZips={this.state.selectedView}
               colors={this.state.colors}
             />
+          </div>
+          <div className="App-chart-container">
+            <Chart film={this.state.selectedView} />
             <BarChart data={dataSet} size={[500, 200]} film={this.state.selectedView} />
           </div>
         </div>
