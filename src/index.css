@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 0;
+  padding-bottom: 50;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -104,4 +104,22 @@ p {
 .Axis-Bottom text {
   transform: rotate(-45deg);
   text-anchor: end;
+}
+
+.desc {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px 0px 10px;
+}
+
+.projects {
+  display: flex;
+  background-color: #E0FFFF;
+  color: black;
+  margin: 8px;
+}
+
+label {
+  font-size: 14px;
+  margin: 4px;
 }

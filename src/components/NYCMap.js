@@ -25,7 +25,6 @@ class NYCMap extends Component {
       zipCodes = this.props.stateZips.info.map((d, i) => (
         <path
           fill={this.props.stateZips.info[i].fill}
-          // className={this.props.stateZips[i].features.properties.PO_NAME}
           key={'path' + i}
           d={pathGenerator(d.features)}
         />
@@ -53,7 +52,6 @@ class NYCMap extends Component {
     ) : (
       <img
         src="https://media.giphy.com/media/QeCYm4ghfbs0o/giphy.gif"
-        // src="https://media.giphy.com/media/ILhyncSuN62qc/giphy.gif"
       />
     );
   }

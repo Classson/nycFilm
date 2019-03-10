@@ -65,7 +65,7 @@ export default class Chart extends Component {
     }
     let categories = this.setupFilmData()
     const margins = { top: 50, right: 20, bottom: 100, left: 60 }
-    const svgDimensions = { width: 400, height: 200 }
+    const svgDimensions = { width: 800, height: 400 }
 
     const maxValue = Math.max(...categories.map(d => d.number))
 
@@ -80,7 +80,7 @@ export default class Chart extends Component {
      // scaleLinear type
     const yScale = this.yScale
        // scaleLinear domain required at least two values, min and max
-      .domain([0, maxValue])
+      .domain([0, maxValue + (maxValue/10)])
       .range([svgDimensions.height - margins.bottom, margins.top])
 
     return ( chartView ?

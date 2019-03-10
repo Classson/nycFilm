@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
-import { interpolateLab } from 'd3-interpolate'
 
 export default class Bars extends Component {
   constructor(props) {
@@ -8,13 +6,12 @@ export default class Bars extends Component {
   }
 
   render() {
-    console.log('bars props are::', this.props)
     const { scales, margins, data, svgDimensions } = this.props
     const { xScale, yScale } = scales
     const { height } = svgDimensions
 
     const bars = (
-      this.props.data.map(datum =>
+      data.map(datum =>
         <rect
           key={datum.name}
           x={xScale(datum.name)}
@@ -25,7 +22,19 @@ export default class Bars extends Component {
         />,
       )
     )
-        console.log('bars are ', bars)
+    const text = (
+      data.map(datum =>
+        <text
+          key={datum.name}
+          text={datum.name}
+          x={xScale(datum.name)}
+          y={yScale(datum.number + 50)}
+          height={height - margins.bottom - scales.yScale(datum.number)}
+          fill='black'
+        />,
+      )
+    )
+
     return (
       <g>{bars}</g>
     )

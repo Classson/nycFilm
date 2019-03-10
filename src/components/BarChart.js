@@ -14,7 +14,8 @@ class BarChart extends Component {
   }
 
   setupFilmData(){
-    let data = this.props.film.info
+    let data = []
+    console.log('chart props ', this.props)
     let allFilms = []
     let categories = [{name: 'Film', number: 0}, {name: 'Television', number: 0}, {name: 'Student', number: 0}, {name: 'Commercial', number: 0}, {name: 'Still Photography', number: 0}, {name: 'WEB', number: 0}, {name: 'Theater', number: 0}, {name: 'Music Video', number: 0}, {name: 'Documentary', number: 0}]
     console.log('running')

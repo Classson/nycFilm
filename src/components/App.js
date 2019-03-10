@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
-import BarChart from './BarChart';
 import NYCMap from './NYCMap';
 import Chart from './Chart';
+import Search from './Search';
 import zipInfo from '../zipInfo';
 import boroughMapInfo from '../boroughInfo';
 import axios from 'axios';
@@ -170,7 +170,7 @@ class App extends Component {
         manhattanZips.push(x);
       }
     });
-    //cords [0 side to side 1,  0 up and down 1]
+
     let overView = { info: overInfo, scale: 50000, center: [-73.98, 40.71] };
     let brooklynInfo = {
       info: brooklynZips,
@@ -221,8 +221,7 @@ class App extends Component {
   async componentDidUpdate() {}
 
   render() {
-    console.log('state is ', this.state);
-    let display = this.state.selectedView || this.state.overView;
+    // let display = this.state.selectedView || this.state.overView;
     let dataSet = [];
     if (this.state.boroughInfo.Brooklyn) {
       dataSet = [
@@ -269,7 +268,9 @@ class App extends Component {
           </div>
           <div className="App-chart-container">
             <Chart film={this.state.selectedView} />
-            <BarChart data={dataSet} size={[500, 200]} film={this.state.selectedView} />
+          </div>
+          <div className="App-chart-container">
+            <Search zips={this.state.stateZips} />
           </div>
         </div>
       </div>
@@ -279,4 +280,3 @@ class App extends Component {
 
 export default App;
 
-//https://data.cityofnewyork.us/resource/tg4x-b46p.json?borough=Queens&subcategoryname=Episodic series
