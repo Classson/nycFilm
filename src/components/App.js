@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
 import BarChart from './BarChart';
 import NYCMap from './NYCMap';
-import zipInfo from './zipInfo';
-import boroughMapInfo from './boroughInfo';
+import zipInfo from '../zipInfo';
+import boroughMapInfo from '../boroughInfo';
 import axios from 'axios';
 
 class App extends Component {
@@ -250,10 +250,10 @@ class App extends Component {
             <label>View</label>
               <select onChange={this.setView}>
                 <option value="overView">Overview</option>
-                <option value="Manhattan">Manhattan</option>
-                <option value="Brooklyn">Brooklyn</option>
-                <option value="Queens">Queens</option>
                 <option value="Bronx">Bronx</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Queens">Queens</option>
                 <option value="Staten Island">Staten Island</option>
                 <option value="detail">Detail</option>
               </select>
