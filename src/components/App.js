@@ -269,6 +269,7 @@ class App extends Component {
           </div>
           <div className="App-chart-container">
             <Chart film={this.state.selectedView} />
+            <BarChart data={dataSet} size={[500, 200]} film={this.state.selectedView} />
           </div>
         </div>
       </div>
