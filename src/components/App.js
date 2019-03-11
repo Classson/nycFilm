@@ -15,7 +15,7 @@ class App extends Component {
       stateZips: { info: [], scale: 0, center: [], filmType: [] },
       year: '2018',
       overView: { info: [], scale: 0, center: [], name: 'selected' },
-      selectedView: { info: [], scale: 0, center: [], name: '' },
+      selectedView: { info: [], scale: 0, center: [], name: 'overview' },
       manhattanInfo: { info: [], scale: 0, center: [], name: 'manhattan' },
       brooklynInfo: { info: [], scale: 0, center: [], name: 'brooklyn' },
       queensInfo: { info: [], scale: 0, center: [], name: 'queens' },
@@ -102,6 +102,7 @@ class App extends Component {
 
   setYear(evt) {
     console.log('YEARS ', this.years)
+    console.log('current state ', this.state)
     this.setState({ ...this.state, year: evt.target.value });
     let view = this.state.selectedView
     let newView;
@@ -136,6 +137,8 @@ class App extends Component {
     }
     else if (evt.target.value === '2015' && this.years.fifteen.boroughInfo) {
       console.log('hit 15')
+      console.log('viewview ', newView)
+      console.log('obj ', this.years.fifteen[newView])
       this.years.fifteen.selectedView = this.years.fifteen[newView]
       this.setState(this.years.fifteen);
     }
@@ -242,7 +245,12 @@ class App extends Component {
       center: [-73.95, 40.78],
       name: 'manhattan',
     };
-    let bronxInfo = { info: bronxZips, scale: 120000, center: [-73.85, 40.85] };
+    let bronxInfo = {
+      info: bronxZips,
+      scale: 120000,
+      center: [-73.85, 40.85],
+      name: 'bronx',
+     };
     let statenInfo = {
       info: statenZips,
       scale: 110000,
