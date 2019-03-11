@@ -368,9 +368,10 @@ class App extends Component {
           <div className="App-chart-container">
             <Chart film={this.state.selectedView} />
           </div>
-          <div className="App-chart-container">
+          <div className="search-container">
             <Search zips={this.state.stateZips} />
           </div>
+          <div className="footer"> </div>
         </div>
       </div>
     );

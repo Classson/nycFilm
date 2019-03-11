@@ -11,25 +11,25 @@ export default class Bars extends Component {
     const { height } = svgDimensions
 
     const bars = (
-      data.map(datum =>
+      data.map(point =>
         <rect
-          key={datum.name}
-          x={xScale(datum.name)}
-          y={yScale(datum.number)}
-          height={height - margins.bottom - scales.yScale(datum.number)}
+          key={point.name}
+          x={xScale(point.name)}
+          y={yScale(point.number)}
+          height={height - margins.bottom - scales.yScale(point.number)}
           width={xScale.bandwidth()}
           fill='#c98304'
         />,
       )
     )
     const text = (
-      data.map(datum =>
+      data.map(point =>
         <text
-          key={datum.name}
-          text={datum.name}
-          x={xScale(datum.name)}
-          y={yScale(datum.number + 50)}
-          height={height - margins.bottom - scales.yScale(datum.number)}
+          key={point.name}
+          text={point.name}
+          x={xScale(point.name)}
+          y={yScale(point.number + 50)}
+          height={height - margins.bottom - scales.yScale(point.number)}
           fill='black'
         />,
       )

@@ -30,7 +30,7 @@ export default class Search extends Component {
   }
 
   render() {
-    return (
+    return ( this.props.zips.info.length ?
       <div>
         <form onSubmit={this.lookup}>
           <input name="zipcode" placeholder="Zipcode" type="number" />
@@ -59,6 +59,6 @@ export default class Search extends Component {
           <div />
         )}
       </div>
-    );
+     : <div></div>);
   }
 }

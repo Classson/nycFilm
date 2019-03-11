@@ -69,17 +69,12 @@ export default class Chart extends Component {
 
     const maxValue = Math.max(...categories.map(d => d.number))
 
-    // scaleBand type
     const xScale = this.xScale
       .padding(0.5)
-      // scaleBand domain should be an array of specific values
-      // in our case, we want to use movie titles
       .domain(categories.map(d => d.name))
       .range([margins.left, svgDimensions.width - margins.right])
 
-     // scaleLinear type
     const yScale = this.yScale
-       // scaleLinear domain required at least two values, min and max
       .domain([0, maxValue + (maxValue/10)])
       .range([svgDimensions.height - margins.bottom, margins.top])
 

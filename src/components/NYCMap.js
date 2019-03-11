@@ -30,6 +30,7 @@ class NYCMap extends Component {
           d={pathGenerator(d.features)}
         />
       ));
+
     }
 
     return this.props.stateZips.info.length ? (
