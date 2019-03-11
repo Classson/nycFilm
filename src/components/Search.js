@@ -22,7 +22,6 @@ export default class Search extends Component {
         });
       }
     });
-    console.log(this.state);
   }
 
   clear(){
@@ -30,7 +29,6 @@ export default class Search extends Component {
   }
 
   render() {
-    console.log('state ', this.state);
     return (
       <div>
         <form onSubmit={this.lookup}>

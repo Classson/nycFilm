@@ -37,6 +37,7 @@ class App extends Component {
     this.setYear = this.setYear.bind(this);
     this.setView = this.setView.bind(this);
     this.setUpOverView = this.setUpOverView.bind(this);
+    this.years = { twelve: {}, fifteen: {}, eighteen: {} };
   }
 
   async getDataBorough(borough, year) {
@@ -100,10 +101,53 @@ class App extends Component {
   }
 
   setYear(evt) {
+    console.log('YEARS ', this.years)
     this.setState({ ...this.state, year: evt.target.value });
+    let view = this.state.selectedView
+    let newView;
+    console.log('saved view ', view.name)
+    if(view.name === 'queens'){
+      newView = 'queensInfo'
+    }
+    if(view.name === 'bronx'){
+      newView = 'bronxInfo'
+    }
+    if(view.name === 'brooklyn'){
+      newView = 'brooklynInfo'
+    }
+    if(view.name === 'manhattan'){
+      newView = 'manhattanInfo'
+    }
+    if(view.name === 'staten'){
+      newView = 'statenInfo'
+    }
+    if(view.name === 'overview'){
+      newView = 'overView'
+    }
+    if(view.name === 'detail'){
+      console.log('hit details!')
+      newView = 'stateZips'
+    }
 
-    console.log('selectedView ', this.state.selectedView.name)
-    this.setBoroughData(this.state.selectedView.name);
+    if (evt.target.value === '2012' && this.years.twelve.boroughInfo) {
+      console.log('hit 12')
+      this.years.twelve.selectedView = this.years.twelve[newView]
+      this.setState(this.years.twelve);
+    }
+    else if (evt.target.value === '2015' && this.years.fifteen.boroughInfo) {
+      console.log('hit 15')
+      this.years.fifteen.selectedView = this.years.fifteen[newView]
+      this.setState(this.years.fifteen);
+    }
+    else if (evt.target.value === '2018' && this.years.eighteen.boroughInfo) {
+      console.log('hit 18')
+      this.years.eighteen.selectedView = this.years.eighteen[newView]
+      this.setState(this.years.eighteen)
+    } else {
+      console.log('else')
+      console.log('passed in for real ', view.name)
+      this.setBoroughData(view.name);
+    }
   }
 
   setView(evt) {
@@ -131,6 +175,7 @@ class App extends Component {
   }
 
   async setBoroughData(view = 'overview') {
+    console.log('view passed in ', view)
     let brooklynZips = [];
     let queensZips = [];
     let bronxZips = [];
@@ -173,67 +218,85 @@ class App extends Component {
       }
     });
 
-    let overView = { info: overInfo, scale: 50000, center: [-73.98, 40.71], name: 'overview' };
+    let overView = {
+      info: overInfo,
+      scale: 50000,
+      center: [-73.98, 40.71],
+      name: 'overview',
+    };
     let brooklynInfo = {
       info: brooklynZips,
       scale: 120001,
       center: [-73.9442, 40.65],
-      name: 'brooklyn'
+      name: 'brooklyn',
     };
     let queensInfo = {
       info: queensZips,
       scale: 70000,
       center: [-73.85, 40.67],
-      name: 'queens'
+      name: 'queens',
     };
     let manhattanInfo = {
       info: manhattanZips,
       scale: 100000,
       center: [-73.95, 40.78],
-      name: 'manhattan'
+      name: 'manhattan',
     };
     let bronxInfo = { info: bronxZips, scale: 120000, center: [-73.85, 40.85] };
     let statenInfo = {
       info: statenZips,
       scale: 110000,
       center: [-74.14, 40.58],
-      name: 'staten'
+      name: 'staten',
     };
-    let detailInfo = { info: allZips, scale: 50000, center: [-73.98, 40.71], name: 'detail' };
-    console.log('new view is ', view)
+    let detailInfo = {
+      info: allZips,
+      scale: 50000,
+      center: [-73.98, 40.71],
+      name: 'detail',
+    };
+    console.log('new view is ', view);
     this.setState({
       ...this.state,
       stateZipInfo: zipInfo,
       stateZips: detailInfo,
       overView,
-      //this is where things are fucking up
-      // selectedView: overView,
       brooklynInfo,
       queensInfo,
       bronxInfo,
       statenInfo,
       manhattanInfo,
     });
-    if(view === 'overview'){
-      this.setState({...this.state, selectedView: overView})
+    if (view === 'overview') {
+      this.setState({ ...this.state, selectedView: overView });
     }
-    if(view === 'manhattan'){
-      this.setState({...this.state, selectedView: manhattanInfo})
+    if (view === 'manhattan') {
+      this.setState({ ...this.state, selectedView: manhattanInfo });
     }
-    if(view === 'brooklyn'){
-      this.setState({...this.state, selectedView: brooklynInfo})
+    if (view === 'brooklyn') {
+      this.setState({ ...this.state, selectedView: brooklynInfo });
     }
-    if(view === 'queens'){
-      this.setState({...this.state, selectedView: queensInfo})
+    if (view === 'queens') {
+      this.setState({ ...this.state, selectedView: queensInfo });
     }
-    if(view === 'bronx'){
-      this.setState({...this.state, selectedView: bronxInfo})
+    if (view === 'bronx') {
+      this.setState({ ...this.state, selectedView: bronxInfo });
     }
-    if(view === 'staten'){
-      this.setState({...this.state, selectedView: statenInfo})
+    if (view === 'staten') {
+      this.setState({ ...this.state, selectedView: statenInfo });
     }
-    if(view === 'detail'){
-      this.setState({...this.state, selectedView: detailInfo})
+    if (view === 'detail') {
+      this.setState({ ...this.state, selectedView: detailInfo });
+    }
+
+    if (!this.years.twelve.boroughInfo && this.state.year === '2012') {
+      this.years.twelve = this.state;
+    }
+    if (!this.years.fifteen.boroughInfo && this.state.year === '2015') {
+      this.years.fifteen = this.state;
+    }
+    if (!this.years.eighteen.boroughInfo && this.state.year === '2018') {
+      this.years.eighteen = this.state;
     }
   }
 
@@ -248,7 +311,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('overall state ', this.state)
+    console.log('overall state ', this.state);
     // let display = this.state.selectedView || this.state.overView;
     let dataSet = [];
     if (this.state.boroughInfo.Brooklyn) {
@@ -307,4 +370,3 @@ class App extends Component {
 }
 
 export default App;
-
