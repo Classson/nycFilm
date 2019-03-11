@@ -22,6 +22,7 @@ export default class Search extends Component {
         });
       }
     });
+    evt.target.zipcode.value = ''
   }
 
   clear(){
