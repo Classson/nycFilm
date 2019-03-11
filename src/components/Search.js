@@ -5,9 +5,12 @@ export default class Search extends Component {
     super(props);
     this.state = { projects: [] };
     this.lookup = this.lookup.bind(this);
+    this.clear = this.clear.bind(this)
   }
 
-  componentDidMount() {}
+  componentDidMount(){
+    this.setState(this.state.projects = [])
+  }
 
   lookup(evt) {
     evt.preventDefault();
@@ -22,13 +25,17 @@ export default class Search extends Component {
     console.log(this.state);
   }
 
+  clear(){
+    this.setState(this.state.projects = [])
+  }
+
   render() {
     console.log('state ', this.state);
     return (
       <div>
         <form onSubmit={this.lookup}>
           <input name="zipcode" placeholder="Zipcode" type="number" />
-          <button type="submit">search</button>
+          <button type="submit">search</button><button onClick={this.clear}type='button'>clear</button>
         </form>{' '}
         {this.state.projects.length ? (
           <div>
@@ -52,11 +59,6 @@ export default class Search extends Component {
         ) : (
           <div />
         )}
-        {/* <div>
-          {this.selected.map(project => (
-            <div key={project.eventid}>{project.eventid}</div>
-          ))}
-        </div> */}
       </div>
     );
   }

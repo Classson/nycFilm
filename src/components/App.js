@@ -14,13 +14,13 @@ class App extends Component {
       boroughInfo: [],
       stateZips: { info: [], scale: 0, center: [], filmType: [] },
       year: '2018',
-      overView: { info: [], scale: 0, center: [], overview: true },
-      selectedView: { info: [], scale: 0, center: [], filmType: [] },
-      manhattanInfo: { info: [], scale: 0, center: [], filmType: [] },
-      brooklynInfo: { info: [], scale: 0, center: [], filmType: [] },
-      queensInfo: { info: [], scale: 0, center: [], filmType: [] },
-      bronxInfo: { info: [], scale: 0, center: [], filmType: [] },
-      statenInfo: { info: [], scale: 0, center: [], filmType: [] },
+      overView: { info: [], scale: 0, center: [], name: 'selected' },
+      selectedView: { info: [], scale: 0, center: [], name: '' },
+      manhattanInfo: { info: [], scale: 0, center: [], name: 'manhattan' },
+      brooklynInfo: { info: [], scale: 0, center: [], name: 'brooklyn' },
+      queensInfo: { info: [], scale: 0, center: [], name: 'queens' },
+      bronxInfo: { info: [], scale: 0, center: [], name: 'bronx' },
+      statenInfo: { info: [], scale: 0, center: [], name: 'staten' },
       colors: [
         '#dbdbdb',
         '#ffa500',
@@ -101,7 +101,9 @@ class App extends Component {
 
   setYear(evt) {
     this.setState({ ...this.state, year: evt.target.value });
-    this.setBoroughData();
+
+    console.log('selectedView ', this.state.selectedView.name)
+    this.setBoroughData(this.state.selectedView.name);
   }
 
   setView(evt) {
@@ -128,7 +130,7 @@ class App extends Component {
     }
   }
 
-  async setBoroughData() {
+  async setBoroughData(view = 'overview') {
     let brooklynZips = [];
     let queensZips = [];
     let bronxZips = [];
@@ -171,41 +173,68 @@ class App extends Component {
       }
     });
 
-    let overView = { info: overInfo, scale: 50000, center: [-73.98, 40.71] };
+    let overView = { info: overInfo, scale: 50000, center: [-73.98, 40.71], name: 'overview' };
     let brooklynInfo = {
       info: brooklynZips,
       scale: 120001,
       center: [-73.9442, 40.65],
+      name: 'brooklyn'
     };
     let queensInfo = {
       info: queensZips,
       scale: 70000,
       center: [-73.85, 40.67],
+      name: 'queens'
     };
     let manhattanInfo = {
       info: manhattanZips,
       scale: 100000,
       center: [-73.95, 40.78],
+      name: 'manhattan'
     };
     let bronxInfo = { info: bronxZips, scale: 120000, center: [-73.85, 40.85] };
     let statenInfo = {
       info: statenZips,
       scale: 110000,
       center: [-74.14, 40.58],
+      name: 'staten'
     };
-    let detailInfo = { info: allZips, scale: 50000, center: [-73.98, 40.71] };
+    let detailInfo = { info: allZips, scale: 50000, center: [-73.98, 40.71], name: 'detail' };
+    console.log('new view is ', view)
     this.setState({
       ...this.state,
       stateZipInfo: zipInfo,
       stateZips: detailInfo,
       overView,
-      selectedView: overView,
+      //this is where things are fucking up
+      // selectedView: overView,
       brooklynInfo,
       queensInfo,
       bronxInfo,
       statenInfo,
       manhattanInfo,
     });
+    if(view === 'overview'){
+      this.setState({...this.state, selectedView: overView})
+    }
+    if(view === 'manhattan'){
+      this.setState({...this.state, selectedView: manhattanInfo})
+    }
+    if(view === 'brooklyn'){
+      this.setState({...this.state, selectedView: brooklynInfo})
+    }
+    if(view === 'queens'){
+      this.setState({...this.state, selectedView: queensInfo})
+    }
+    if(view === 'bronx'){
+      this.setState({...this.state, selectedView: bronxInfo})
+    }
+    if(view === 'staten'){
+      this.setState({...this.state, selectedView: statenInfo})
+    }
+    if(view === 'detail'){
+      this.setState({...this.state, selectedView: detailInfo})
+    }
   }
 
   async getDataZip(zip, year) {
@@ -218,9 +247,8 @@ class App extends Component {
     this.setBoroughData();
   }
 
-  async componentDidUpdate() {}
-
   render() {
+    console.log('overall state ', this.state)
     // let display = this.state.selectedView || this.state.overView;
     let dataSet = [];
     if (this.state.boroughInfo.Brooklyn) {
